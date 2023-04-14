@@ -4,8 +4,8 @@
         "es2021": true
     },
     "extends": [
-        "plugin:vue/vue3-essential",
-        "standard"
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -15,6 +15,18 @@
         "vue"
     ],
     "rules": {
-
+        "no-console": "warn",
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ]
     }
 }
