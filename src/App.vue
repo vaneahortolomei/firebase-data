@@ -1,14 +1,12 @@
 <template>
-  <div>{{ string }} Vanea!</div>
-  <img src="/vite.svg" alt="image"/>
-  <img src="/vite.svg" alt="image"/>
-  <img src="/vite.svg" alt="image"/>
+  <div class="container">
+    <List />
+  </div>
 </template>
+
 <script setup>
-    import {ref} from "vue";
-
-    const string = ref("hello");
-    const number = ref(1);
-
-    console.log("number", number.value);
+    import List from "./components/ListItems.vue";
 </script>
+<style>
+
+</style>
