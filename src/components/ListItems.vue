@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div>{{name}}</div>
     <ul>
       <li>
         <button @click="showScreen('original')">
@@ -37,6 +38,7 @@
 <script setup>
     import {ref, reactive, computed} from "vue";
 
+    const name = ref('John');
     const selectedTab = ref("original");
     const images = reactive([
         {
