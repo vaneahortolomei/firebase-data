@@ -80,7 +80,7 @@
         selectedTab.value = str;
     };
 
-    const sortedImages = computed(() => images.sort((a, b) => a.id - b.id));
+    const sortedImages = computed(() => images.slice(0).sort((a, b) => a.id - b.id));
 
     const filteredImages = computed(() => {
         if (selectedTab.value === "original") {
