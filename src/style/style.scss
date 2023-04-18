@@ -86,3 +86,30 @@ li {
     margin-left: 15px;
   }
 }
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  &__item {
+    background: #f9f9f9;
+    color: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 0;
+  }
+}
+.container {
+  position: relative;
+  min-width: 320px;
+  padding: 0 20px;
+  margin: 0 auto;
+  width: 100%;
+  @media(min-width: 1025px) {
+    max-width: 1200px;
+  }
+
+  &--top {
+    margin-top: 50px;
+  }
+}
