@@ -1,30 +1,29 @@
 <template>
-  <div>
-    Dashboard
-    <List />
+    <div>
+        <List/>
 
-    <ul>
-      <li>{{ response }}</li>
-      <li>{{ data }}</li>
-    </ul>
-  </div>
+        <div v-for="item in cards" :key="item">
+            <p>{{item.name}}</p>
+            <p>{{item.email}}</p>
+            <p>{{item.age}}</p>
+        </div>
+    </div>
 </template>
 
 <script setup>
     import List from "../components/ListItems.vue";
+    import Service from "../services/service.js";
 
-    import axios from "axios";
-    import {ref} from "vue";
+    import {ref, reactive, onMounted, computed} from "vue";
 
-    const response = ref("");
-    const data = ref("");
+    const cards = ref('');
 
-    axios.get("//localhost:3000/dashboard")
-        .then(data => {
-            return data.value = data.data;
-        })
-        .catch(e => {
-            return response.value = e.message;
-        })
-        .finally(() => "data is fetched!");
+    onMounted(() => {
+        reactive(Service.getUsers()
+            .then(data => {
+                cards.value = data;
+            }).catch(e => {
+                return e.message;
+            }).finally(() => 'data is fetched'));
+    });
 </script>
