@@ -1,7 +1,7 @@
-name: GitHub Actions Demo
+name: firebase
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
-  push: 
+on:
+  push:
     branches: [main]
   pull_request:
     branches: [main]
