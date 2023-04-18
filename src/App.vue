@@ -1,12 +1,10 @@
 <template>
+  <Header />
   <div class="container">
-    <List />
+    <router-view />
   </div>
 </template>
 
 <script setup>
-    import List from "./components/ListItems.vue";
+    import Header from "./components/HeaderItem.vue";
 </script>
-<style>
-
-</style>
