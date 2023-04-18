@@ -2,14 +2,17 @@
   <div>
     <List />
 
-    <div
-      v-for="item in cards"
-      :key="item"
-    >
-      <p>{{ item.name }}</p>
-      <p>{{ item.email }}</p>
-      <p>{{ item.age }}</p>
-    </div>
+    <ul class="list">
+      <li
+        v-for="item in cards"
+        :key="item.id"
+        class="list__item"
+      >
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.email }}</p>
+        <p>{{ item.age }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
