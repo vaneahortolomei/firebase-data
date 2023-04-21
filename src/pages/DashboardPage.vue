@@ -1,7 +1,7 @@
 <template>
   <div>
     <List />
-
+    <p>{{ errorMessage }}</p>
     <ul class="list">
       <li
         v-for="item in cards"
@@ -23,13 +23,14 @@
     import {ref, reactive, onMounted} from "vue";
 
     const cards = ref("");
+    const errorMessage = ref("");
 
     onMounted(() => {
         reactive(Service.getUsers()
-            .then(data => {
-                cards.value = data;
+            .then(response => {
+                cards.value = response.data;
             }).catch(e => {
-                return e.message;
+              errorMessage.value = e.message;
             }).finally(() => "data is fetched"));
     });
 </script>

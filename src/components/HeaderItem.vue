@@ -25,9 +25,13 @@
         </li>
       </ul>
     </nav>
+    <!--    <p>{{name}}</p>-->
   </header>
 </template>
 
 <script setup>
+  // import {useStore} from "vuex";
+  //
+  // const store = useStore();
 
 </script>
