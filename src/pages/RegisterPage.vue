@@ -63,9 +63,9 @@
 </template>
 
 <script setup>
-    import {ref, computed} from "vue";
+    import {ref} from "vue";
     import {useStore} from "vuex";
-    import {useRouter, useRoute} from "vue-router";
+    import {useRouter} from "vue-router";
 
     const userName = ref("");
     const userEmail = ref("");
@@ -75,9 +75,6 @@
     const error = ref(false);
     const store = useStore();
     const route = useRouter();
-
-
-    const data = ref(null);
 
     const register = () => {
 
