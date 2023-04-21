@@ -3,7 +3,7 @@
     role="form"
     class="form"
     action="#"
-    @submit.prevent="submitRegisterForm"
+    @submit.prevent="register"
   >
     <div class="form__group">
       <label
@@ -39,44 +39,68 @@
         class="form__error"
       >Error</span>
     </div>
+    <div class="form__group">
+      <label
+        class="form__label"
+        for="userPassword"
+      >Password</label>
+      <input
+        id="userPassword"
+        v-model="userPassword"
+        type="password"
+        class="form__input"
+        name="userPassword"
+      >
+      <span
+        v-if="error"
+        class="form__error"
+      >Error</span>
+    </div>
     <button type="submit">
       Send
     </button>
   </form>
-
-
-  <div>
-    <p
-      v-for="user in data"
-      :key="user"
-    >
-      {{ user }}
-    </p>
-  </div>
 </template>
 
 <script setup>
-    import {ref} from "vue";
+    import {ref, computed} from "vue";
+    import {useStore} from "vuex";
+    import {useRouter, useRoute} from "vue-router";
 
     const userName = ref("");
     const userEmail = ref("");
+    const userPassword = ref("");
+
+
     const error = ref(false);
+    const store = useStore();
+    const route = useRouter();
+
 
     const data = ref(null);
 
-    const submitRegisterForm = () => {
+    const register = () => {
 
-        if(!userName.value || !userEmail.value){
-          return error.value = true;
+        if (!userName.value ||
+            !userEmail.value ||
+            !userPassword.value) {
+            return error.value = true;
+        } else {
+            error.value = false;
         }
 
-        else {
-          error.value = false;
-        }
-
-        return data.value = {
+        return store.dispatch("register", {
             name: userName.value,
             email: userEmail.value,
-        };
+            password: userPassword.value,
+        }).then(() => {
+            route.push({
+                name: "dashboard",
+            });
+        }).catch(e => {
+            return e.message;
+        });
     };
+
+
 </script>

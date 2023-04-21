@@ -25,9 +25,19 @@
         </li>
       </ul>
     </nav>
+    <!--    <p>{{name}}</p>-->
   </header>
 </template>
 
 <script setup>
+  import {useStore} from "vuex";
+  import {computed} from "vue";
 
+  const store = useStore();
+
+  console.log(store.state.user);
+
+  // const name = computed(() => {
+  //     return store.state.user.name === null ? 'false' : store.state.user.name;
+  // })
 </script>
