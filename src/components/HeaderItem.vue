@@ -25,16 +25,21 @@
         </li>
       </ul>
     </nav>
-    <div v-if="!data" class="controls">
+    <div
+      v-if="!data"
+      class="controls"
+    >
       <button>Login</button>
     </div>
-    <div v-else>{{name}}</div>
+    <div v-else>
+      {{ name }}
+    </div>
   </header>
 </template>
 
 <script setup>
-  import {useStore} from 'vuex';
-  import {computed, reactive, ref} from 'vue';
+  import {useStore} from "vuex";
+  import {computed} from "vue";
 
   const store = useStore();
 

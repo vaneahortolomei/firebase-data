@@ -24,19 +24,19 @@
     </div>
     <div class="form__group">
       <label
-          class="form__label"
-          for="userPassword"
+        class="form__label"
+        for="userPassword"
       >Password</label>
       <input
-          id="userPassword"
-          v-model="userPassword"
-          type="password"
-          class="form__input"
-          name="userPassword"
+        id="userPassword"
+        v-model="userPassword"
+        type="password"
+        class="form__input"
+        name="userPassword"
       >
       <span
-          v-if="error"
-          class="form__error"
+        v-if="error"
+        class="form__error"
       >Error</span>
     </div>
     <button type="submit">
@@ -50,7 +50,6 @@
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";
 
-    const userName = ref("");
     const userEmail = ref("");
     const userPassword = ref("");
 

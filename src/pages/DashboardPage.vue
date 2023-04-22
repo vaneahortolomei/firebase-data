@@ -1,17 +1,17 @@
 <template>
-    <List />
-    <p>{{ errorMessage }}</p>
-    <ul class="list">
-      <li
-        v-for="item in cards"
-        :key="item.id"
-        class="list__item"
-      >
-        <h2>{{ item.name }}</h2>
-        <p>{{ item.email }}</p>
-        <p>{{ item.age }}</p>
-      </li>
-    </ul>
+  <List />
+  <p>{{ errorMessage }}</p>
+  <ul class="list">
+    <li
+      v-for="item in cards"
+      :key="item.id"
+      class="list__item"
+    >
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.email }}</p>
+      <p>{{ item.age }}</p>
+    </li>
+  </ul>
 </template>
 
 <script setup>

@@ -24,8 +24,8 @@ const store = createStore({
                 });
         },
         login(){
-            console.log('login user');
-        }
+           return "login user";
+        },
     },
 });
 
