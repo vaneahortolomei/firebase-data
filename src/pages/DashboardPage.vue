@@ -1,5 +1,4 @@
 <template>
-  <div>
     <List />
     <p>{{ errorMessage }}</p>
     <ul class="list">
@@ -13,7 +12,6 @@
         <p>{{ item.age }}</p>
       </li>
     </ul>
-  </div>
 </template>
 
 <script setup>

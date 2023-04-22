@@ -3,25 +3,8 @@
     role="form"
     class="form"
     action="#"
-    @submit.prevent="register"
+    @submit.prevent="login"
   >
-    <div class="form__group">
-      <label
-        class="form__label"
-        for="userName"
-      >Name</label>
-      <input
-        id="userName"
-        v-model="userName"
-        type="text"
-        class="form__input"
-        name="userName"
-      >
-      <span
-        v-if="error"
-        class="form__error"
-      >Error</span>
-    </div>
     <div class="form__group">
       <label
         class="form__label"
@@ -41,23 +24,23 @@
     </div>
     <div class="form__group">
       <label
-        class="form__label"
-        for="userPassword"
+          class="form__label"
+          for="userPassword"
       >Password</label>
       <input
-        id="userPassword"
-        v-model="userPassword"
-        type="password"
-        class="form__input"
-        name="userPassword"
+          id="userPassword"
+          v-model="userPassword"
+          type="password"
+          class="form__input"
+          name="userPassword"
       >
       <span
-        v-if="error"
-        class="form__error"
+          v-if="error"
+          class="form__error"
       >Error</span>
     </div>
     <button type="submit">
-      Send
+      Login
     </button>
   </form>
 </template>
@@ -76,18 +59,16 @@
     const store = useStore();
     const route = useRouter();
 
-    const register = () => {
+    const login = () => {
 
-        if (!userName.value ||
-            !userEmail.value ||
+        if (!userEmail.value ||
             !userPassword.value) {
             return error.value = true;
         } else {
             error.value = false;
         }
 
-        return store.dispatch("register", {
-            name: userName.value,
+        return store.dispatch("login", {
             email: userEmail.value,
             password: userPassword.value,
         }).then(() => {
@@ -98,6 +79,4 @@
             return e.message;
         });
     };
-
-
 </script>
