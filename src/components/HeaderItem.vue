@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header">
     <nav>
       <ul>
         <li>
@@ -18,20 +18,33 @@
         </li>
         <li>
           <router-link
-            :to="{name: 'register'}"
+            :to="{name: 'authenticate'}"
           >
-            Register
+            Auth
           </router-link>
         </li>
       </ul>
     </nav>
-    <!--    <p>{{name}}</p>-->
+    <div
+      v-if="!data"
+      class="controls"
+    >
+      <button>Login</button>
+    </div>
+    <div v-else>
+      {{ name }}
+    </div>
   </header>
 </template>
 
 <script setup>
-  // import {useStore} from "vuex";
-  //
-  // const store = useStore();
+  import {useStore} from "vuex";
+  import {computed} from "vue";
+
+  const store = useStore();
+
+
+  const data = store.state;
+  const name = computed(() => data);
 
 </script>

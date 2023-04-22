@@ -9,14 +9,11 @@ const store = createStore({
     mutations: {
         SET_USER_DATA(state, data) {
             localStorage.setItem("user", JSON.stringify(data));
+
             localStorage.setItem("access_token", JSON.stringify(data.token));
 
-            axios.defaults.headers.common["Authorization"] = `Bearer ${
-                data.token
-            }`;
-
+            axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
             state.user = data;
-
         },
     },
     actions: {
@@ -25,6 +22,9 @@ const store = createStore({
                 .then(({data}) => {
                     commit("SET_USER_DATA", data);
                 });
+        },
+        login(){
+           return "login user";
         },
     },
 });
