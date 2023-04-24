@@ -4,17 +4,22 @@ import axios from "axios";
 
 const store = createStore({
     state: {
-        user: null,
+        user: localStorage.getItem("user"),
     },
     mutations: {
-        SET_USER_DATA(state, data) {
-            localStorage.setItem("user", JSON.stringify(data));
+        SET_USER_DATA(state, userData) {
+            state.user = userData;
+            localStorage.setItem("user", JSON.stringify(userData));
 
-            localStorage.setItem("access_token", JSON.stringify(data.token));
+            localStorage.setItem("access_token", JSON.stringify(userData.token));
 
-            axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-            state.user = data;
+            // axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         },
+        LOGOUT_USER_DATA(){
+            localStorage.removeItem('user');
+            localStorage.removeItem('access_token');
+            location.reload();
+        }
     },
     actions: {
         register({commit}, credentials) {
@@ -23,10 +28,21 @@ const store = createStore({
                     commit("SET_USER_DATA", data);
                 });
         },
-        login(){
-           return "login user";
+        login({commit}, credentials) {
+            return Services.loginUser(credentials)
+                .then(({data}) => {
+                    commit("SET_USER_DATA", data);
+                });
         },
+        logout({commit}){
+            commit("LOGOUT_USER_DATA");
+        }
     },
+    getters: {
+        loggedIn(state) {
+            return !!state.user;
+        }
+    }
 });
 
 export default store;

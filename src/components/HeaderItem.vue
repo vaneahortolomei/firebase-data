@@ -9,14 +9,14 @@
             Home
           </router-link>
         </li>
-        <li>
+        <li v-if="user">
           <router-link
             :to="{name: 'dashboard'}"
           >
             Dashboard
           </router-link>
         </li>
-        <li>
+        <li v-if="!user">
           <router-link
             :to="{name: 'authenticate'}"
           >
@@ -25,14 +25,18 @@
         </li>
       </ul>
     </nav>
-    <div
-      v-if="!data"
-      class="controls"
-    >
-      <button>Login</button>
+    <div v-if="user" class="controls">
+      <button @click="logout">Logout</button>
+      <p class="controls__name">{{store.state.user.name}}</p>
     </div>
-    <div v-else>
-      {{ name }}
+    <div v-else class="controls">
+      <button role="link">
+        <router-link
+            :to="{name: 'authenticate'}"
+        >
+          Login
+        </router-link>
+      </button>
     </div>
   </header>
 </template>
@@ -43,8 +47,22 @@
 
   const store = useStore();
 
+  const user = computed(() => store.getters.loggedIn);
 
-  const data = store.state;
-  const name = computed(() => data);
+  console.log(user.value);
+
+  const logout = () => {
+    store.dispatch('logout');
+  }
 
 </script>
+<style scoped lang="scss">
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__name {
+      margin-left: 15px;
+    }
+  }
+</style>
