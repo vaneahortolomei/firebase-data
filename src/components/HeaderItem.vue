@@ -25,14 +25,24 @@
         </li>
       </ul>
     </nav>
-    <div v-if="user" class="controls">
-      <button @click="logout">Logout</button>
-      <p class="controls__name">{{store.state.user.name}}</p>
+    <div
+      v-if="user"
+      class="controls"
+    >
+      <button @click="logout">
+        Logout
+      </button>
+      <p class="controls__name">
+        {{ store.state.user.name }}
+      </p>
     </div>
-    <div v-else class="controls">
+    <div
+      v-else
+      class="controls"
+    >
       <button role="link">
         <router-link
-            :to="{name: 'authenticate'}"
+          :to="{name: 'authenticate'}"
         >
           Login
         </router-link>
@@ -49,11 +59,9 @@
 
   const user = computed(() => store.getters.loggedIn);
 
-  console.log(user.value);
-
   const logout = () => {
-    store.dispatch('logout');
-  }
+    store.dispatch("logout");
+  };
 
 </script>
 <style scoped lang="scss">

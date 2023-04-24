@@ -1,6 +1,5 @@
 import {createStore} from "vuex";
 import Services from "../services/service.js";
-import axios from "axios";
 
 const store = createStore({
     state: {
@@ -16,10 +15,10 @@ const store = createStore({
             // axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         },
         LOGOUT_USER_DATA(){
-            localStorage.removeItem('user');
-            localStorage.removeItem('access_token');
+            localStorage.removeItem("user");
+            localStorage.removeItem("access_token");
             location.reload();
-        }
+        },
     },
     actions: {
         register({commit}, credentials) {
@@ -36,13 +35,13 @@ const store = createStore({
         },
         logout({commit}){
             commit("LOGOUT_USER_DATA");
-        }
+        },
     },
     getters: {
         loggedIn(state) {
             return !!state.user;
-        }
-    }
+        },
+    },
 });
 
 export default store;

@@ -14,7 +14,7 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: Dashboard,
-        meta: {requiresAuth: true}
+        meta: {requiresAuth: true},
     },
     {
         path: "/authenticate",
@@ -32,12 +32,12 @@ const router = createRouter({
 
 export default router;
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
 
     const loggedIn = localStorage.getItem("user");
     if (to.meta.requiresAuth && !loggedIn) {
         return {
-            path: '/',
-        }
+            path: "/",
+        };
     }
 });

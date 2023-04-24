@@ -75,7 +75,6 @@
                 name: "dashboard",
             });
         }).catch(e => {
-            console.log(e.response)
             return e.response;
         });
     };
