@@ -1,5 +1,4 @@
 <template>
-  <p>authenticate page</p>
   <ul>
     <li>
       <button @click="showScreen('login')">
@@ -21,6 +20,7 @@
 </template>
 
 <script setup>
+
     import {ref} from "vue";
     import Register from "../components/RegisterPage.vue";
     import Login from "../components/LoginPage.vue";

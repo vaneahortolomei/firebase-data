@@ -14,7 +14,6 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: Dashboard,
-        meta: {requiresAuth: true},
     },
     {
         path: "/authenticate",
@@ -24,7 +23,6 @@ const routes = [
 ];
 
 const router = createRouter({
-
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes,
     linkExactActiveClass: "",
@@ -33,11 +31,11 @@ const router = createRouter({
 export default router;
 
 router.beforeEach((to) => {
+    const publicPages = ['/authenticate', '/'];
+    const authRequired = !publicPages.includes(to.path)
+    const loggedIn = localStorage.getItem('user')
 
-    const loggedIn = localStorage.getItem("user");
-    if (to.meta.requiresAuth && !loggedIn) {
-        return {
-            path: "/",
-        };
+    if (authRequired && !loggedIn) {
+        return  {path: '/authenticate'}
     }
 });
