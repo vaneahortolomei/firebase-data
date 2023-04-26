@@ -12,15 +12,19 @@
       >Name</label>
       <input
         id="userName"
-        v-model="userName"
+        v-model="v$.name.$model"
         type="text"
         class="form__input"
         name="userName"
+        @blur="v$.name.$touch"
       >
       <span
-        v-if="error"
+        v-for="(error, index) in v$.name.$errors"
+        :key="index"
         class="form__error"
-      >Error</span>
+      >
+        {{ error.$message }}
+      </span>
     </div>
     <div class="form__group">
       <label
@@ -29,15 +33,19 @@
       >Email</label>
       <input
         id="userEmail"
-        v-model="userEmail"
+        v-model="v$.email.$model"
         type="text"
         class="form__input"
         name="userEmail"
+        @blur="v$.email.$touch"
       >
       <span
-        v-if="error"
+        v-for="(error, index) in v$.email.$errors"
+        :key="index"
         class="form__error"
-      >Error</span>
+      >
+        {{ error.$message }}
+      </span>
     </div>
     <div class="form__group">
       <label
@@ -46,57 +54,93 @@
       >Password</label>
       <input
         id="userPassword"
-        v-model="userPassword"
+        v-model="v$.password.$model"
         type="password"
         class="form__input"
         name="userPassword"
+        @blur="v$.password.$touch"
       >
       <span
-        v-if="error"
+        v-for="(error, index) in v$.password.$errors"
+        :key="index"
         class="form__error"
-      >Error</span>
+      >
+        {{ error.$message }}
+      </span>
+      <button type="submit">
+        Send
+      </button>
     </div>
-    <button type="submit">
-      Send
-    </button>
   </form>
 </template>
 
 <script setup>
-    import {ref} from "vue";
+    import {reactive, computed} from "vue";
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";
+    import {useVuelidate} from "@vuelidate/core";
+    import {required, email, minLength} from "@vuelidate/validators";
+    import {inject} from "vue";
 
-    const userName = ref("");
-    const userEmail = ref("");
-    const userPassword = ref("");
+    let key = inject("key");
+    const state = reactive({
+        name: "",
+        email: "",
+        password: "",
+    });
 
+    const rules = computed(() => ({
+        name: {
+            required,
+            minValue: minLength(2),
+            $lazy: true,
+        },
+        email: {
+            required,
+            email,
+            $lazy: true,
+        },
+        password: {
+            required,
+            minLength: minLength(8),
+            $lazy: true,
+        },
+    }));
 
-    const error = ref(false);
+    const v$ = useVuelidate(rules, state);
+
     const store = useStore();
     const route = useRouter();
 
+
     const register = () => {
+        v$.value.$validate()
+            .then(valid => {
+                if (valid) {
+                    store.dispatch("register", {
+                        name: state.name,
+                        email: state.email,
+                        password: state.password,
+                    })
+                        .then(() => {
+                            route.push("dashboard");
+                        })
+                        .catch(e => {
+                            if (e.response && e.response.status === 400) {
+                                key.message = "Email already exist!";
 
-        if (!userName.value ||
-            !userEmail.value ||
-            !userPassword.value) {
-            return error.value = true;
-        } else {
-            error.value = false;
-        }
-
-        return store.dispatch("register", {
-            name: userName.value,
-            email: userEmail.value,
-            password: userPassword.value,
-        }).then(() => {
-
-            route.push({
-                name: "dashboard",
-            });
-        }).catch(e => {
-            return e.message;
-        });
+                                setTimeout(() => {
+                                    key.message = "";
+                                }, 2000);
+                            }
+                        });
+                } else {
+                    throw Error("Value is required");
+                }
+            })
+            .catch(() => {
+                throw Error("Value is required");
+            })
+            .finally(() => "Data");
     };
 </script>

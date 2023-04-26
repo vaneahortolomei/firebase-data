@@ -12,15 +12,19 @@
       >Email</label>
       <input
         id="userEmail"
-        v-model="userEmail"
+        v-model="v$.email.$model"
         type="text"
         class="form__input"
         name="userEmail"
+        @blur="v$.email.$touch"
       >
       <span
-        v-if="error"
+        v-for="(error, index) in v$.email.$errors"
+        :key="index"
         class="form__error"
-      >Error</span>
+      >
+        {{ error.$message }}
+      </span>
     </div>
     <div class="form__group">
       <label
@@ -29,16 +33,20 @@
       >Password</label>
       <input
         id="userPassword"
-        v-model="userPassword"
+        v-model="v$.password.$model"
         type="password"
         class="form__input"
         name="userPassword"
+        @blur="v$.password.$touch"
       >
-      <span
-        v-if="error"
-        class="form__error"
-      >Error</span>
     </div>
+    <span
+      v-for="(error, index) in v$.password.$errors"
+      :key="index"
+      class="form__error"
+    >
+      {{ error.$message }}
+    </span>
     <button type="submit">
       Login
     </button>
@@ -46,36 +54,67 @@
 </template>
 
 <script setup>
-    import {ref} from "vue";
+    import {reactive, computed} from "vue";
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";
+    import {useVuelidate} from "@vuelidate/core";
+    import {required, email, minLength} from "@vuelidate/validators";
+    import {inject} from "vue";
 
-    const userEmail = ref("");
-    const userPassword = ref("");
+
+    let key = inject("key");
+    const state = reactive({
+        email: "",
+        password: "",
+    });
+
+    const rules = computed(() => ({
+        email: {
+            required,
+            email,
+            $lazy: true,
+        },
+        password: {
+            required,
+            minLength: minLength(8),
+            $lazy: true,
+        },
+    }));
+
+    const v$ = useVuelidate(rules, state);
 
 
-    const error = ref(false);
     const store = useStore();
     const route = useRouter();
 
+
     const login = () => {
+        v$.value.$validate()
+            .then(valid => {
+                if (valid) {
+                    store.dispatch("login", {
+                        email: state.email,
+                        password: state.password,
+                    })
+                        .then(() => {
+                            route.push("dashboard");
+                        })
+                        .catch(e => {
+                            if (e.response && e.response.status === 400) {
+                                key.message = "Incorrect email or password!";
 
-        if (!userEmail.value ||
-            !userPassword.value) {
-            return error.value = true;
-        } else {
-            error.value = false;
-        }
-
-        return store.dispatch("login", {
-            email: userEmail.value,
-            password: userPassword.value,
-        }).then(() => {
-            route.push({
-                name: "dashboard",
-            });
-        }).catch(e => {
-            return e.message;
-        });
+                                setTimeout(() => {
+                                    key.message = "";
+                                }, 2000);
+                            }
+                        });
+                } else {
+                    throw Error("Value is required");
+                }
+            })
+            .catch(() => {
+                throw Error("Value is required");
+            })
+            .finally(() => "Data");
     };
 </script>

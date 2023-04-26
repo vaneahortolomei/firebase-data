@@ -17,4 +17,7 @@ export default {
     registerUser(credentials) {
         return data.post("/register", credentials);
     },
+    loginUser(credentials) {
+        return data.post("/login", credentials);
+    },
 };

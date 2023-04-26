@@ -23,10 +23,19 @@ const routes = [
 ];
 
 const router = createRouter({
-
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes,
     linkExactActiveClass: "",
 });
 
 export default router;
+
+router.beforeEach((to) => {
+    const publicPages = ["/authenticate", "/"];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem("user");
+
+    if (authRequired && !loggedIn) {
+        return  {path: "/authenticate"};
+    }
+});

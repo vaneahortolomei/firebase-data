@@ -1,19 +1,24 @@
 import {createStore} from "vuex";
 import Services from "../services/service.js";
-import axios from "axios";
 
 const store = createStore({
     state: {
-        user: null,
+        user: localStorage.getItem("user"),
     },
     mutations: {
-        SET_USER_DATA(state, data) {
-            localStorage.setItem("user", JSON.stringify(data));
+        SET_USER_DATA(state, userData) {
+            state.user = userData;
+            localStorage.setItem("user", JSON.stringify(userData));
 
-            localStorage.setItem("access_token", JSON.stringify(data.token));
-
-            axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-            state.user = data;
+            localStorage.setItem("access_token", JSON.stringify(userData.token));
+            setTimeout(() => {
+                location.reload();
+            });
+        },
+        LOGOUT_USER_DATA(){
+            localStorage.removeItem("user");
+            localStorage.removeItem("access_token");
+            location.reload();
         },
     },
     actions: {
@@ -23,8 +28,19 @@ const store = createStore({
                     commit("SET_USER_DATA", data);
                 });
         },
-        login(){
-           return "login user";
+        login({commit}, credentials) {
+            return Services.loginUser(credentials)
+                .then(({data}) => {
+                    commit("SET_USER_DATA", data);
+                });
+        },
+        logout({commit}){
+            commit("LOGOUT_USER_DATA");
+        },
+    },
+    getters: {
+        loggedIn(state) {
+            return !!state.user;
         },
     },
 });
