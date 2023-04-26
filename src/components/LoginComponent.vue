@@ -6,18 +6,14 @@
     @submit.prevent="login"
   >
     <div class="form__group">
-      <label
-        class="form__label"
-        for="userEmail"
-      >Email</label>
-      <input
-        id="userEmail"
+      <Input
+        id="email"
         v-model="v$.email.$model"
+        label="Email"
         type="text"
-        class="form__input"
-        name="userEmail"
+        name="email"
         @blur="v$.email.$touch"
-      >
+      />
       <span
         v-for="(error, index) in v$.email.$errors"
         :key="index"
@@ -27,26 +23,22 @@
       </span>
     </div>
     <div class="form__group">
-      <label
-        class="form__label"
-        for="userPassword"
-      >Password</label>
-      <input
-        id="userPassword"
+      <Input
+        id="password"
         v-model="v$.password.$model"
+        label="Password"
         type="password"
-        class="form__input"
-        name="userPassword"
+        name="password"
         @blur="v$.password.$touch"
+      />
+      <span
+        v-for="(error, index) in v$.password.$errors"
+        :key="index"
+        class="form__error"
       >
+        {{ error.$message }}
+      </span>
     </div>
-    <span
-      v-for="(error, index) in v$.password.$errors"
-      :key="index"
-      class="form__error"
-    >
-      {{ error.$message }}
-    </span>
     <button type="submit">
       Login
     </button>
@@ -54,6 +46,7 @@
 </template>
 
 <script setup>
+    import Input from "../components/form/InputComponent.vue";
     import {reactive, computed} from "vue";
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";

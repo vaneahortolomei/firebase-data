@@ -6,18 +6,15 @@
     @submit.prevent="register"
   >
     <div class="form__group">
-      <label
-        class="form__label"
-        for="userName"
-      >Name</label>
-      <input
-        id="userName"
+      <Input
+        id="name"
         v-model="v$.name.$model"
+        label="Name"
         type="text"
         class="form__input"
-        name="userName"
+        name="name"
         @blur="v$.name.$touch"
-      >
+      />
       <span
         v-for="(error, index) in v$.name.$errors"
         :key="index"
@@ -27,18 +24,15 @@
       </span>
     </div>
     <div class="form__group">
-      <label
-        class="form__label"
-        for="userEmail"
-      >Email</label>
-      <input
-        id="userEmail"
+      <Input
+        id="email"
         v-model="v$.email.$model"
+        label="Email"
         type="text"
         class="form__input"
-        name="userEmail"
+        name="email"
         @blur="v$.email.$touch"
-      >
+      />
       <span
         v-for="(error, index) in v$.email.$errors"
         :key="index"
@@ -48,18 +42,15 @@
       </span>
     </div>
     <div class="form__group">
-      <label
-        class="form__label"
-        for="userPassword"
-      >Password</label>
-      <input
-        id="userPassword"
+      <Input
+        id="password"
         v-model="v$.password.$model"
+        label="Password"
         type="password"
         class="form__input"
-        name="userPassword"
+        name="password"
         @blur="v$.password.$touch"
-      >
+      />
       <span
         v-for="(error, index) in v$.password.$errors"
         :key="index"
@@ -67,14 +58,15 @@
       >
         {{ error.$message }}
       </span>
-      <button type="submit">
-        Send
-      </button>
     </div>
+    <button type="submit">
+      Send
+    </button>
   </form>
 </template>
 
 <script setup>
+    import Input from "../components/form/InputComponent.vue";
     import {reactive, computed} from "vue";
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";
@@ -83,6 +75,7 @@
     import {inject} from "vue";
 
     let key = inject("key");
+
     const state = reactive({
         name: "",
         email: "",

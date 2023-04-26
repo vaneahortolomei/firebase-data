@@ -9,14 +9,14 @@
             Home
           </router-link>
         </li>
-        <li v-if="user">
+        <li v-if="data">
           <router-link
             :to="{name: 'dashboard'}"
           >
             Dashboard
           </router-link>
         </li>
-        <li v-if="!user">
+        <li v-if="!data">
           <router-link
             :to="{name: 'authenticate'}"
           >
@@ -26,15 +26,13 @@
       </ul>
     </nav>
     <div
-      v-if="user"
+      v-if="data"
       class="controls"
     >
       <button @click="logout">
         Logout
       </button>
-      <p class="controls__name">
-        {{ store.state.user.name }}
-      </p>
+      <p class="controls__name" />
     </div>
     <div
       v-else
@@ -52,25 +50,27 @@
 </template>
 
 <script setup>
-  import {useStore} from "vuex";
-  import {computed} from "vue";
+    import {useStore} from "vuex";
+    import {computed} from "vue";
 
-  const store = useStore();
+    const store = useStore();
 
-  const user = computed(() => store.getters.loggedIn);
+    const data = computed(() => store.getters.loggedIn);
 
-  const logout = () => {
-    store.dispatch("logout");
-  };
+
+    const logout = () => {
+        store.dispatch("logout");
+    };
 
 </script>
 <style scoped lang="scss">
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &__name {
-      margin-left: 15px;
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__name {
+            margin-left: 15px;
+        }
     }
-  }
 </style>
