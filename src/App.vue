@@ -14,9 +14,8 @@
 </template>
 
 <script setup>
-    import Header from "./components/HeaderItem.vue";
+    import Header from "./components/HeaderComponent.vue";
     import {inject} from "vue";
 
     let key = inject("key");
-
 </script>

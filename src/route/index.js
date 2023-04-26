@@ -33,7 +33,7 @@ export default router;
 router.beforeEach((to) => {
     const publicPages = ["/authenticate", "/"];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem("user");
+    const loggedIn = localStorage.getItem("data");
 
     if (authRequired && !loggedIn) {
         return  {path: "/authenticate"};

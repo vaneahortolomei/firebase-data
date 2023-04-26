@@ -3,12 +3,12 @@ import Services from "../services/service.js";
 
 const store = createStore({
     state: {
-        user: localStorage.getItem("user"),
+        data: localStorage.getItem("data"),
     },
     mutations: {
         SET_USER_DATA(state, userData) {
-            state.user = userData;
-            localStorage.setItem("user", JSON.stringify(userData));
+            state.data = userData;
+            localStorage.setItem("data", JSON.stringify(userData));
 
             localStorage.setItem("access_token", JSON.stringify(userData.token));
             setTimeout(() => {
@@ -16,7 +16,7 @@ const store = createStore({
             });
         },
         LOGOUT_USER_DATA(){
-            localStorage.removeItem("user");
+            localStorage.removeItem("data");
             localStorage.removeItem("access_token");
             location.reload();
         },
@@ -40,7 +40,7 @@ const store = createStore({
     },
     getters: {
         loggedIn(state) {
-            return !!state.user;
+            return !!state.data;
         },
     },
 });

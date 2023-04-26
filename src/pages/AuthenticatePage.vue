@@ -22,8 +22,8 @@
 <script setup>
 
     import {ref} from "vue";
-    import Register from "../components/RegisterPage.vue";
-    import Login from "../components/LoginPage.vue";
+    import Register from "../components/RegisterComponent.vue";
+    import Login from "../components/LoginComponent.vue";
 
     const selectedTab = ref("");
 

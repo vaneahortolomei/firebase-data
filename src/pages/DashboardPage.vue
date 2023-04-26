@@ -1,5 +1,4 @@
 <template>
-  <List />
   <p>{{ errorMessage }}</p>
   <ul class="list">
     <li
@@ -15,7 +14,6 @@
 </template>
 
 <script setup>
-    import List from "../components/ListItems.vue";
     import Service from "../services/service.js";
 
     import {ref, reactive, onMounted} from "vue";
