@@ -13,7 +13,7 @@ const store = createStore({
             localStorage.setItem("access_token", JSON.stringify(userData.token));
             setTimeout(() => {
                 location.reload();
-            })
+            });
         },
         LOGOUT_USER_DATA(){
             localStorage.removeItem("user");

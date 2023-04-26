@@ -31,11 +31,11 @@ const router = createRouter({
 export default router;
 
 router.beforeEach((to) => {
-    const publicPages = ['/authenticate', '/'];
-    const authRequired = !publicPages.includes(to.path)
-    const loggedIn = localStorage.getItem('user')
+    const publicPages = ["/authenticate", "/"];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem("user");
 
     if (authRequired && !loggedIn) {
-        return  {path: '/authenticate'}
+        return  {path: "/authenticate"};
     }
 });
