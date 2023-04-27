@@ -1,50 +1,49 @@
 <template>
   <header class="header">
-    <nav>
-      <ul>
-        <li>
+    <nav class="header__navigation">
+      <ul class="header__list nav-list">
+        <li class="nav-list__item">
           <router-link
+            class="nav-list__link"
             :to="{name: 'home'}"
           >
             Home
           </router-link>
         </li>
-        <li v-if="data">
+        <li
+          v-if="data"
+          class="nav-list__item"
+        >
           <router-link
+            class="nav-list__link"
             :to="{name: 'dashboard'}"
           >
             Dashboard
-          </router-link>
-        </li>
-        <li v-if="!data">
-          <router-link
-            :to="{name: 'authenticate'}"
-          >
-            Auth
           </router-link>
         </li>
       </ul>
     </nav>
     <div
       v-if="data"
-      class="controls"
+      class="controls controls--header"
     >
-      <button @click="logout">
+      <button
+        class="controls__button button button--primary"
+        @click="logout"
+      >
         Logout
       </button>
-      <p class="controls__name" />
     </div>
     <div
       v-else
-      class="controls"
+      class="controls controls--header"
     >
-      <button role="link">
-        <router-link
-          :to="{name: 'authenticate'}"
-        >
-          Login
-        </router-link>
-      </button>
+      <router-link
+        class="controls__link button button--primary"
+        :to="{name: 'authenticate'}"
+      >
+        Login
+      </router-link>
     </div>
   </header>
 </template>

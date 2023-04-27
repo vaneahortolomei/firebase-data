@@ -1,7 +1,7 @@
 <template>
   <form
     role="form"
-    class="form"
+    class="form form--auth"
     action="#"
     @submit.prevent="login"
   >
@@ -39,8 +39,11 @@
         {{ error.$message }}
       </span>
     </div>
-    <button type="submit">
-      Login
+    <button
+      class="button button--light button--responsive"
+      type="submit"
+    >
+      Log In
     </button>
   </form>
 </template>

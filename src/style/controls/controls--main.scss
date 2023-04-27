@@ -1,0 +1,12 @@
+.controls.controls--main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    .controls__button {
+        margin: 0;
+    }
+    .controls__button + .controls__button {
+        margin-left: 20px;
+    }
+}

@@ -1,15 +1,19 @@
 <template>
-  <Header />
-  <transition name="fade">
-    <div
-      v-if="key.message"
-      class="message"
-    >
-      {{ key.message }}
+  <div class="wrapper">
+    <div class="content">
+      <Header />
+      <transition name="fade">
+        <div
+          v-if="key.message"
+          class="message"
+        >
+          {{ key.message }}
+        </div>
+      </transition>
+      <div class="container">
+        <router-view />
+      </div>
     </div>
-  </transition>
-  <div class="container">
-    <router-view />
   </div>
 </template>
 
