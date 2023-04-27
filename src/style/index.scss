@@ -4,6 +4,8 @@
 @import "./header/index";
 @import "./auth/index";
 @import "./controls/index";
+@import "./dashboard/index";
+@import "./notification/index";
 @import "main-page";
 @import "list";
 @import "fade";
@@ -19,7 +21,7 @@
     --black-color: #000;
     --error-color: #ff6b6b;
 
-    color-scheme: light dark;
+    //color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
 
     font-synthesis: none;
@@ -88,15 +90,15 @@ img {
     }
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
-    }
-}
+//@media (prefers-color-scheme: light) {
+//    :root {
+//        color: #213547;
+//        background-color: #ffffff;
+//    }
+//    a:hover {
+//        color: #747bff;
+//    }
+//    button {
+//        background-color: #f9f9f9;
+//    }
+//}

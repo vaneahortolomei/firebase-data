@@ -136,7 +136,6 @@
             })
             .catch(() => {
                 throw Error("Value is required");
-            })
-            .finally(() => "Data");
+            });
     };
 </script>

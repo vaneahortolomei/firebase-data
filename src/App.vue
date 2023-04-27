@@ -5,7 +5,7 @@
       <transition name="fade">
         <div
           v-if="key.message"
-          class="message"
+          class="notification"
         >
           {{ key.message }}
         </div>
