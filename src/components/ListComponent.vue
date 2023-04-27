@@ -1,29 +1,35 @@
 <template>
-  <div class="page">
-    <ul>
-      <li>
-        <button @click="showScreen('original')">
-          OriginalItems
-        </button>
-      </li>
-      <li>
-        <button @click="showScreen('removed')">
-          RemovedItems
-        </button>
-      </li>
-    </ul>
+  <div class="main-page">
+    <div class="controls controls--main">
+      <button
+        class="button controls__button"
+        @click="showScreen('original')"
+      >
+        Original Items
+      </button>
+      <button
+        class="button controls__button"
+        @click="showScreen('removed')"
+      >
+        Removed Items
+      </button>
+    </div>
     <header>
       <h2>{{ selectedTab === 'original' ? 'OriginalItems' : 'RemovedItems' }}</h2>
       <p>Length: {{ imgLength }}</p>
     </header>
-    <ul v-if="imgLength > 0">
+    <ul
+      v-if="imgLength > 0"
+      class="list"
+    >
       <li
         v-for="image in filteredImages"
         :key="image.id"
-        class="page__img-item"
+        class="list__item"
       >
         <span>{{ image.id }}</span>
         <img
+          class="list__img"
           :src="image.src"
           :alt="image.name"
           :data-status="image.status"
@@ -38,6 +44,7 @@
     import {ref, reactive, computed} from "vue";
 
     const selectedTab = ref("original");
+    const active = ref(false);
     const images = reactive([
         {
             id: 2,
@@ -78,6 +85,7 @@
 
     const showScreen = str => {
         selectedTab.value = str;
+        active.value = true;
     };
 
     const sortedImages = computed(() => images.slice(0).sort((a, b) => a.id - b.id));
@@ -93,21 +101,3 @@
 
     const imgLength = computed(() => filteredImages.value.length);
 </script>
-
-<style scoped lang="scss">
-    .page {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
-
-        &__img-item {
-            cursor: pointer;
-
-            + .page__img-item {
-                margin-left: 15px;
-            }
-
-        }
-    }
-</style>
