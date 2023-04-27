@@ -1,32 +1,17 @@
 <template>
-  <p>{{ errorMessage }}</p>
-  <ul class="list">
-    <li
-      v-for="item in cards"
-      :key="item.id"
-      class="list__item"
-    >
-      <h2>{{ item.name }}</h2>
-      <p>{{ item.email }}</p>
-      <p>{{ item.age }}</p>
-    </li>
-  </ul>
+  <div class="dashboard">
+    <h1>{{ users }} Items</h1>
+    <Users @users="usersLength" />
+  </div>
 </template>
 
 <script setup>
-    import Service from "../services/service.js";
+    import Users from "../components/UsersListComponent.vue";
+    import {ref} from "vue";
 
-    import {ref, reactive, onMounted} from "vue";
+    const users = ref(0);
 
-    const cards = ref("");
-    const errorMessage = ref("");
-
-    onMounted(() => {
-        reactive(Service.getUsers()
-            .then(response => {
-                cards.value = response.data;
-            }).catch(e => {
-              errorMessage.value = e.message;
-            }).finally(() => "data is fetched"));
-    });
+    const usersLength = (data) => {
+        users.value = data.length;
+    };
 </script>
